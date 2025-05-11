@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RAG Q&A Assistant</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f1f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: rgb(208, 166, 166);
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        textarea {
+            width: 90%;
+            height: 100px;
+            padding: 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            resize: vertical;
+        }
+
+        button {
+            background-color: #000000;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #357dcf;
+        }
+
+        .section {
+            margin-top: 30px;
+        }
+
+        .section h3 {
+            margin-bottom: 10px;
+            color: #4a90e2;
+        }
+
+        .box {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-left: 4px solid #4a90e2;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            white-space: pre-wrap;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>RAG-Powered Multi-Agent Q&A Assistant</h1>
+
+        <form method="POST">
+            <label for="query">Ask your question:</label><br>
+            <textarea name="query" required placeholder="e.g., What is the return policy?"></textarea><br>
+            <button type="submit">Get Answer</button>
+        </form>
+
+        {% if result %}
+            <div class="section">
+                <h3>Agent Decision</h3>
+                <div class="box">{{ decision }}</div>
+            </div>
+
+            {% if retrieved_docs %}
+                <div class="section">
+                    <h3>Retrieved Snippets</h3>
+                    {% for doc in retrieved_docs %}
+                        <div class="box">{{ doc }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="section">
+                <h3>Final Answer</h3>
+                <div class="box">{{ result }}</div>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
